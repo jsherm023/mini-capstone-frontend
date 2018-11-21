@@ -1,7 +1,21 @@
 <template>
   <div class="home">
     <h1>{{ message }}</h1>
-    <p v-for="product in products"> {{product.name}}</p>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4" v-for="product in products">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Name: {{ product.name }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Price: {{ product.price }}</h6>
+              <p class="card-text">Descsription: {{ product.description }}</p>
+              <a href="#" class="card-link">Card link</a>
+              <a href="#" class="card-link">Another link</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
