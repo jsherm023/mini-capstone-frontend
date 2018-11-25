@@ -26,11 +26,14 @@ export default {
   data: function() {
     return {
       message: "Welcome to the show component!",
+      name: "",
+      price: "",
+      description: "",
       product: [],
     };
   },
   created: function() {
-    axios.get('http://localhost:3000/api/products/' + this.$route.params.id).then(response =>{
+    axios.get('http://localhost:3000/api/products' + this.$route.params.id).then(response =>{
       console.log(response.data);
       this.product = response.data;
       })
