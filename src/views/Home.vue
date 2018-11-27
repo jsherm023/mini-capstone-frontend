@@ -11,16 +11,25 @@
                <h6 class="card-subtitle mb-2 text-muted">Id: {{ product.id }}</h6>
               <p class="card-text">Descsription: {{ product.description }}</p>
               <a href="#" class="card-link">Card link</a>
-              <a href="#" class="card-link">Another link</a>
-            </div>
+              <a href="#" class="card-link">Another link</a>          
+            </div>           
           </div>
         </div>
       </div>
     </div>
+      <p class="red" v-for="error in errors">{{error}}</p>
+      <p>name:<input type="text" v-model="newProduct.name"></p>
+      <p>description:<input type="text" v-model="newProduct.description"></p>
+      <p>price:<input type="text" v-model="newProduct.price"></p>
+      <button v-on:click="addProduct()">add a new product</button> 
   </div>
+
 </template>
 
 <style>
+.red {
+  color: red;
+}
 </style>
 
 <script>
@@ -30,6 +39,8 @@ export default {
     return {
       message: "Welcome to Vue.js!",
       products: [],
+      newProduct: { name: "", description: "", price: ""},
+      errors: []
     };
   },
   created: function() {
@@ -38,7 +49,24 @@ export default {
       this.products = response.data;
       }.bind(this))
   },
-  methods: {},
+  methods: {
+    addProduct: function() {
+      var params = {
+        name: this.newProduct.name,
+        description: this.newProduct.description,
+        price: this.newProduct.price
+      }
+      axios.post('http://localhost:3000/api/products', params).then(function(response) {
+        console.log(response.data);
+        this.errors = [];
+      }.bind(this)).catch(function(errors) {
+        console.log('in the .catch function');
+        console.log(errors.response);
+        this.errors = errors.response.data.errors;
+      }.bind(this))
+      console.log('add the person');
+    },
+  },
   computed: {}
 };
 </script>

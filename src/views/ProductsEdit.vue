@@ -7,15 +7,15 @@
         </ul>
         <div class="form-group">
           <label>name:</label> 
-          <input type="text" class="form-control" v-model="name">
+          <input type="text" class="form-control" v-model="Product.name">
         </div>
         <div class="form-group">
           <label>description:</label>
-          <input type="text" class="form-control" v-model="description">
+          <input type="text" class="form-control" v-model="Product.description">
         </div>
         <div class="form-group">
           <label>price:</label>
-          <input type="text" class="form-control" v-model="price">
+          <input type="text" class="form-control" v-model="Product.price">
         </div>
         <input type="submit" class="btn btn-primary" value="Submit">
       </form>
@@ -30,10 +30,7 @@ export default {
   data: function() {
     return {
       message: "Edit your product!",
-      name: "",
-      price: "",
-      description: "",
-      product: [],
+      Product: {}
     };
   },
   created: function() {
