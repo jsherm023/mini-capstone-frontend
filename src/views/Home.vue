@@ -1,9 +1,10 @@
 <template>
   <div class="home">
     <h1>{{ message }}</h1>
+      search by name: <input v-model="nameFilter">
     <div class="container">
       <div class="row">
-        <div class="col-sm-4" v-for="product in products">
+        <div class="col-sm-4" v-for="product in filterBy(products, nameFilter, 'name')">
           <div class="card" style="width: 18rem;">
             <div class="card-body">
               <h5 class="card-title">Name: {{ product.name }}</h5>
@@ -34,13 +35,16 @@
 
 <script>
 var axios = require('axios');
+import Vue2Filters from "vue2-filters";
 export default {
+  mixins: [Vue2Filters.mixin],
   data: function() {
     return {
       message: "Welcome to Vue.js!",
       products: [],
       newProduct: { name: "", description: "", price: ""},
-      errors: []
+      errors: [],
+      nameFilter: ""
     };
   },
   created: function() {
