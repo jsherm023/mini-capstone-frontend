@@ -15,7 +15,8 @@
     <div class="container">
       <div class="row">
         <!-- <div class="col-sm-4" v-for="product in filterBy(products, nameFilter, 'name')"> -->
-          <div v-for="product in orderBy(products, sortAttribute, sortAscending)">
+          <transition-group name="fade">
+          <div v-for="product in orderBy(products, sortAttribute, sortAscending)" v-bind:key="product.id">
           <div class="card" style="width: 18rem;">
             <div class="card-body">
               <h5 class="card-title">Name: {{ product.name }}</h5>
@@ -27,6 +28,7 @@
             </div>           
           </div>
         </div>
+      </transition-group>
       </div>
     </div>
       <p class="red" v-for="error in errors">{{error}}</p>
@@ -42,6 +44,38 @@
 .red {
   color: red;
 }
+/* Vue.js fade */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0
+}
+
+/* Vue.js slide-right */
+.slide-right-enter-active {
+  transition: all .3s ease;
+}
+.slide-right-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-right-enter, .slide-right-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+/* Vue.js slide-left */
+.slide-left-enter-active {
+  transition: all .3s ease;
+}
+.slide-left-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-left-enter, .slide-left-leave-to {
+  transform: translateX(-10px);
+  opacity: 0;
+}
+
 </style>
 
 <script>
@@ -93,7 +127,7 @@ export default {
       } else {
         this.sortAttribute = inputAttribute;       
       }
-  },
+    },
   },
   computed: {}
 };
