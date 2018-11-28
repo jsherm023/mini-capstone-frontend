@@ -1,7 +1,13 @@
 <template>
   <div class="home">
     <h1>{{ message }}</h1>
-      search by name: <input v-model="nameFilter">
+      search by name: <input v-model="nameFilter" list="names">
+      <datalist id="names">
+        <span v-for="product in products">
+          <option>{{ product.name }} </option>
+          <option>{{ product.description }} </option>
+        </span>
+      </datalist>
     <div class="container">
       <div class="row">
         <div class="col-sm-4" v-for="product in filterBy(products, nameFilter, 'name')">
