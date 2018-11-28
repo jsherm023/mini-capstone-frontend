@@ -8,9 +8,14 @@
           <option>{{ product.description }} </option>
         </span>
       </datalist>
+      <div>
+        <button v-on:click="setSortAttribute('name')">Sort by name</button>
+        <button v-on:click="setSortAttribute('description')">Sort by description> </button>
+      </div>
     <div class="container">
       <div class="row">
-        <div class="col-sm-4" v-for="product in filterBy(products, nameFilter, 'name')">
+        <!-- <div class="col-sm-4" v-for="product in filterBy(products, nameFilter, 'name')"> -->
+          <div v-for="product in orderBy(products, sortAttribute)">
           <div class="card" style="width: 18rem;">
             <div class="card-body">
               <h5 class="card-title">Name: {{ product.name }}</h5>
@@ -50,7 +55,8 @@ export default {
       products: [],
       newProduct: { name: "", description: "", price: ""},
       errors: [],
-      nameFilter: ""
+      nameFilter: "",
+      sortAttribute:  "name"
     };
   },
   created: function() {
@@ -59,6 +65,9 @@ export default {
       this.products = response.data;
       }.bind(this))
   },
+  // setSortAttribute: function(inputAttribute) {
+  //   this.sortAttribute = inputAttribute;
+  // },
   methods: {
     addProduct: function() {
       var params = {
@@ -75,7 +84,11 @@ export default {
         this.errors = errors.response.data.errors;
       }.bind(this))
       console.log('add the person');
+
     },
+    setSortAttribute: function(inputAttribute) {
+    this.sortAttribute = inputAttribute;
+  },
   },
   computed: {}
 };
