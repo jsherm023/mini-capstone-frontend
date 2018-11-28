@@ -15,7 +15,7 @@
     <div class="container">
       <div class="row">
         <!-- <div class="col-sm-4" v-for="product in filterBy(products, nameFilter, 'name')"> -->
-          <div v-for="product in orderBy(products, sortAttribute)">
+          <div v-for="product in orderBy(products, sortAttribute, sortAscending)">
           <div class="card" style="width: 18rem;">
             <div class="card-body">
               <h5 class="card-title">Name: {{ product.name }}</h5>
@@ -56,7 +56,8 @@ export default {
       newProduct: { name: "", description: "", price: ""},
       errors: [],
       nameFilter: "",
-      sortAttribute:  "name"
+      sortAttribute:  "name",
+      sortAscending: 1
     };
   },
   created: function() {
@@ -87,7 +88,11 @@ export default {
 
     },
     setSortAttribute: function(inputAttribute) {
-    this.sortAttribute = inputAttribute;
+      if (this.sortAttribute === inputAttribute) {
+        this.sortAscending *= -1;
+      } else {
+        this.sortAttribute = inputAttribute;       
+      }
   },
   },
   computed: {}
